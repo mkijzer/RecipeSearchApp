@@ -1,7 +1,15 @@
-export const Button = ({ text, onClick }) => {
+import { Button as ChakraButton } from "@chakra-ui/react";
+
+export const Button = ({ text, onClick, size }) => {
   return (
-    <button className="Button" onClick={onClick}>
+    <ChakraButton
+      fontSize="sm"
+      px="1.5"
+      color="orange.400"
+      size={size}
+      onClick={onClick}
+    >
       {text}
-    </button>
+    </ChakraButton>
   );
 };

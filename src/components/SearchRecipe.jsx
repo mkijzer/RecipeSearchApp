@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextInput } from "./ui/TextInput";
 import { data } from "../utils/data";
+import { Box, Center } from "@chakra-ui/react";
 
 export const SearchRecipe = ({ onSearch }) => {
   const handleChange = (event) => {
@@ -9,9 +10,8 @@ export const SearchRecipe = ({ onSearch }) => {
   };
 
   return (
-    <div>
-      <h2>Search here</h2>
+    <Center>
       <TextInput changeFn={handleChange} />
-    </div>
+    </Center>
   );
 };

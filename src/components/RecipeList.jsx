@@ -1,11 +1,13 @@
+import { Flex, Grid } from "@chakra-ui/react";
 import { RecipeItem } from "./RecipeItem";
+
 export const RecipeList = ({ matchedRecipes, onSelectRecipe }) => {
   const handleRecipeClick = (recipe) => {
     onSelectRecipe(recipe);
   };
 
   return (
-    <div>
+    <Flex wrap="wrap" justify="space-evenly" align="center" width="full">
       {matchedRecipes.map((dish) => (
         <RecipeItem
           key={dish.recipe.label}
@@ -17,6 +19,6 @@ export const RecipeList = ({ matchedRecipes, onSelectRecipe }) => {
           onClick={() => handleRecipeClick(dish.recipe)}
         />
       ))}
-    </div>
+    </Flex>
   );
 };

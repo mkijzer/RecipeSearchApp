@@ -2,6 +2,7 @@ import { useState } from "react";
 import { data } from "../utils/data";
 import { SearchRecipe } from "../components/searchRecipe";
 import { RecipeList } from "../components/RecipeList";
+import { Box, Center, Heading } from "@chakra-ui/react";
 
 export const RecipeListPage = ({ onSelectRecipe }) => {
   const [matchedRecipes, setMatchedRecipes] = useState(data.hits);
@@ -14,13 +15,32 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
   };
 
   return (
-    <div>
-      <SearchRecipe onSelectRecipe={onSelectRecipe} onSearch={handleSearch} />
-      <h1>Your Recipe App For You</h1>
-      <RecipeList
-        matchedRecipes={matchedRecipes}
-        onSelectRecipe={onSelectRecipe}
-      />
-    </div>
+    <Box m="4">
+      <Center>
+        <Box w="full" m="4">
+          <Heading
+            fontFamily=" 'Pacifico' cursive"
+            mt="8"
+            mb="6"
+            textAlign="center"
+          >
+            Your Favorite Recipe App
+          </Heading>
+
+          <Box mb={4} p={3} fontSize="sm">
+            <SearchRecipe
+              onSelectRecipe={onSelectRecipe}
+              onSearch={handleSearch}
+            />
+          </Box>
+          <Box w="full">
+            <RecipeList
+              matchedRecipes={matchedRecipes}
+              onSelectRecipe={onSelectRecipe}
+            />
+          </Box>
+        </Box>
+      </Center>
+    </Box>
   );
 };
