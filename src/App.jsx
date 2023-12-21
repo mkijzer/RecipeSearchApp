@@ -1,6 +1,7 @@
 import React from "react";
 import { RecipeListPage } from "./pages/RecipeListPage";
 import { RecipeDetailPage } from "./pages/RecipeDetailPage";
+import { Box } from "@chakra-ui/react";
 
 export const App = () => {
   const [selectedRecipe, setSelectedRecipe] = React.useState(null);
@@ -10,7 +11,7 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <Box bg="gray.300">
       {selectedRecipe ? (
         <>
           <RecipeDetailPage
@@ -26,6 +27,6 @@ export const App = () => {
           />
         </>
       )}
-    </div>
+    </Box>
   );
 };

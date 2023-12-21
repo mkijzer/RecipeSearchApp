@@ -15,17 +15,63 @@ import {
 import { Button } from "../components/ui/Button";
 
 export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
+  const showNutrients = (nutrients) => {
+    const nutrientKeys = [
+      "ENERC_KCAL",
+      "FAT",
+      "FASAT",
+      "FATRN",
+      "FAMS",
+      "FAPU",
+      "CHOCDF",
+      "FIBTG",
+      "SUGAR",
+      "PROCNT",
+      "CHOLE",
+      "NA",
+      "CA",
+      "MG",
+      "K",
+      "FE",
+      "ZN",
+      "P",
+      "VITA_RAE",
+      "VITC",
+      "THIA",
+      "RIBF",
+      "NIA",
+      "VITB6A",
+      "FOLDFE",
+      "FOLFD",
+      "FOLAC",
+      "VITB12",
+      "VITD",
+      "TOCPHA",
+      "VITK1",
+      "WATER",
+    ];
+
+    return nutrientKeys.map((key) => {
+      const nutrient = nutrients[key];
+      return (
+        <Text key={key} fontSize="xs">
+          {nutrient.label}: {nutrient.quantity.toFixed(0)} {nutrient.unit}
+        </Text>
+      );
+    });
+  };
+
   const buttonSize = useBreakpointValue({ base: "xs", md: "sm" });
   const buttonText = useBreakpointValue({
-    base: "back",
-    md: "back to recipes ",
+    base: "Back",
+    md: "Back to recipes ",
   });
   const imageSize = useBreakpointValue({ base: "250px", md: "400px" });
 
   return (
-    <Center h="100vh" w="100vw">
+    <Center h={{ base: "auto", md: "100vh" }} w="100vw">
       <Box
-        p={5}
+        p={{ base: 3, md: 5 }}
         shadow="md"
         borderWidth="1px"
         rounded="md"
@@ -33,18 +79,29 @@ export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
         w="full"
         mx="auto"
         my={4}
-        backgroundColor="gray.100"
+        backgroundColor="gray.200"
         position="relative"
-        overflowY="auto"
+        // overflowY="aut"
       >
         <Button
           text={buttonText}
           onClick={onReturnToRecipes}
           position="absolute"
-          top={5}
-          left={5}
+          top="20px"
+          left="20px"
           size={buttonSize}
+          zIndex="2"
         ></Button>
+
+        <Text
+          fontSize="xs"
+          textTransform="uppercase"
+          position="absolute"
+          top="20px"
+          right="20px"
+        >
+          {selectedRecipe.dishType}
+        </Text>
 
         <Image
           p="5"
@@ -57,8 +114,16 @@ export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
           alt={selectedRecipe.label}
           borderRadius="md"
         />
-
-        {/* HERE STARTS THE FLEX */}
+        <Flex
+          wrap="wrap"
+          justify="left"
+          align="start"
+          mt="4"
+          mx="auto"
+          w="full"
+        >
+          {showNutrients(selectedRecipe.totalNutrients)}
+        </Flex>
 
         <Flex
           direction={{ base: "column", md: "row" }}
@@ -67,12 +132,11 @@ export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
           mt="4"
           mx="auto"
           w="full"
+          gap="50px"
         >
           {/* FIRST COLUMN */}
-          {/* <Box flex={1} textAlign="left"> */}
 
-          <VStack flex="1" spacing={2} align="start">
-            <Text fontSize="sm"> Category: {selectedRecipe.dishType}</Text>
+          <VStack flex="1" spacing={2} align="start" mt="14px">
             <Heading fontSize="xl">{selectedRecipe.label}</Heading>
 
             {/* <Text fontSize="xs">
@@ -88,17 +152,11 @@ export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
             <Text fontSize="xs">Calories: {selectedRecipe.calories} kcal</Text>
           </VStack>
 
-          {/* </Box> */}
-
           {/* SECOND COLUMN  */}
-          {/* <Box flex={1} textAlign="left"> */}
+
           <VStack flex="1" spacing={4} align="start">
             <Box textAlign="left" mt={4}>
-              <Text fontSize="sm">
-                Total preparing time: {selectedRecipe.totalTime}{" "}
-              </Text>
-              <Box mt={5}></Box>
-              <Text fontSize="sm">Ingredients:</Text>
+              <Text fontSize="sm">Ingredients</Text>
               <Text fontSize="xs">
                 <Box w="full" mt={2}>
                   <UnorderedList spacing={2}>
@@ -109,31 +167,33 @@ export const RecipeDetailPage = ({ selectedRecipe, onReturnToRecipes }) => {
                 </Box>
               </Text>
             </Box>
+            <Text fontSize="xs">
+              Total preparing time: {selectedRecipe.totalTime} min{" "}
+            </Text>
           </VStack>
-          {/* </Box> */}
+          <Box mt={5}></Box>
 
           {/* // Third COLUMN */}
-          {/* <Box flex={1} textAlign="left"> */}
+
           <VStack flex="1" spacing={3} align="start">
             {" "}
             <Box mt={4}>
-              <Text color="red">
+              <Text color="red" fontSize="sm">
                 Cautions: {selectedRecipe.cautions.join(", ")}
               </Text>
             </Box>
             <VStack align="start" spacing={1}>
-              <Text fontSize="sm">Diet Labels:</Text>
+              <Text fontSize="sm">Diet Labels</Text>
               <Text fontSize="xs">{selectedRecipe.dietLabels.join(", ")}</Text>
             </VStack>
-            <Box color="green.200">
-              <Text color="green.600" fontSize="sm">
-                Health Labels:
+            <Box>
+              <Text fontSize="sm" color="green.600">
+                Health Labels
               </Text>
-
               <Wrap spacing={1}>
                 {selectedRecipe.healthLabels.map((label, index) => (
                   <WrapItem key={index} minWidth="100px">
-                    <Text color="green.600" fontSize="xs" mr={2}>
+                    <Text fontSize="xs" mr={2} color="green.600">
                       {label}
                     </Text>
                   </WrapItem>

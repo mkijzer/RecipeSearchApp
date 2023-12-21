@@ -14,8 +14,11 @@ export const RecipeList = ({ matchedRecipes, onSelectRecipe }) => {
           label={dish.recipe.label}
           image={dish.recipe.image}
           dishType={dish.recipe.dishType}
+          mealType={dish.recipe.mealType}
           dietLabels={dish.recipe.dietLabels}
           cautions={dish.recipe.cautions}
+          healthLabels={dish.recipe.healthLabels}
+          totalNutritients={dish.recipe.totalNutritients}
           onClick={() => handleRecipeClick(dish.recipe)}
         />
       ))}
